@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 //rutas
 import { ErrorPageComponent } from './shared/error-page/error-page.component';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 
 const routes: Routes =  [
     {
         path: 'heroes',
-        loadChildren:() => import ('./heroes/heroes.module').then(m=>m.HeroesModule)
+        loadChildren:() => import ('./heroes/heroes.module').then(m=>m.HeroesModule),
+        canLoad: [AuthGuard],
+        canActivate: [AuthGuard]
     },
     {   path: 'auth',
         loadChildren:()=>  import('./auth/auth.module').then( m=>m.AuthModule )
